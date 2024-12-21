@@ -1,5 +1,7 @@
+import {URL} from './backendConnectionURL'
+
 const signupService=async (formData)=>{
-    const response= await fetch("http://localhost:3000/api/user/signup",{
+    const response= await fetch(`${URL}user/signup`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json'

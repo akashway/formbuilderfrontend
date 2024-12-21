@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { FormBuilderContext } from '../context/ContextProvider'
 import styles from './formFolderModal.module.css'
+import { addFolder } from '../services/folderService'
 
 
 const FormFolderModal = (props) => {
@@ -17,7 +18,7 @@ const FormFolderModal = (props) => {
         modalName = "Form"
     }
 
-    const formFolderNameSubmitHandler = (event) => {
+    const formFolderNameSubmitHandler = async (event) => {
         event.preventDefault()
         let text = inputData
         let singleSpacedText = text.replace(/\s+/g, ' ').trim()
@@ -28,9 +29,29 @@ const FormFolderModal = (props) => {
         else {
             console.log("Note: If Input contains extra blankspace in between words we will remove")
             if (modalName === "Folder") {
-                setFolderNames(prevData => {
-                    return [...prevData, singleSpacedText]
-                })
+
+                const folderData={
+                    folderName:singleSpacedText
+                }
+                const response=await addFolder(folderData)
+                let data=""
+
+                if (response.status === 200) {
+                    data = await response.json()
+                    setFolderNames(prevData => {
+                        return [...prevData, data]
+                    })
+                }
+
+                else if(response.status === 400){
+                    data = await response.json()
+                    alert(data.message)
+                }
+
+                else{
+                    console.log("Some error occured while adding folder")
+                }
+
             }
 
             if (modalName === 'Form') {
