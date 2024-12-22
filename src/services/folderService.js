@@ -23,4 +23,16 @@ const addFolder=async (folderData)=>{
     return response
 }
 
-export {fetchFolderService,addFolder}
+const fetchFileInsideUserService=async()=>{
+    const response=await fetch(`${URL}folder`,{
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('token')}`
+        }
+    })
+
+    return response
+}
+
+export {fetchFolderService,addFolder,fetchFileInsideUserService}

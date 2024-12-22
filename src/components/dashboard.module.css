@@ -15,6 +15,7 @@
 .form-container {
     width: 80%;
     color: white;
+    display: flex;
 }
 
 #folderIsSelected {

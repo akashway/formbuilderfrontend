@@ -2,11 +2,12 @@ import React, { useEffect, useState, useContext } from 'react'
 import { FormBuilderContext } from '../context/ContextProvider'
 import styles from './formFolderModal.module.css'
 import { addFolder } from '../services/folderService'
+import { addFile } from '../services/fileService'
 
 
 const FormFolderModal = (props) => {
     const [inputData, setInputData] = useState("")
-    const { setFolderNames, setFileNames } = useContext(FormBuilderContext)
+    const { setFolderNames, setFileNames,selectedFolder} = useContext(FormBuilderContext)
     const { show, onShow, buttonType } = props
 
     let modalName = ""
@@ -55,9 +56,32 @@ const FormFolderModal = (props) => {
             }
 
             if (modalName === 'Form') {
-                setFileNames(prevData => {
-                    return [...prevData, singleSpacedText]
-                })
+
+
+                const fileData={
+                    fileName:singleSpacedText,
+                    folderName:selectedFolder?selectedFolder:null
+                }
+                 
+                const response=await addFile(fileData)
+                let data=""
+
+                if (response.status === 200) {
+                    data = await response.json()
+                    setFileNames(prevData => {
+                        return [...prevData, data]
+                    })
+                }
+
+                else if(response.status === 400){
+                    data = await response.json()
+                    alert(data.message)
+                }
+
+                else{
+                    console.log("Some error occured while adding folder")
+                }
+
             }
 
             onShow(false)
