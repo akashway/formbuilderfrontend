@@ -1,4 +1,4 @@
-import {URL} from './backendConnectionURL'
+const URL=import.meta.env.VITE_API_URL
 
 
 const shareAccessService=async (data)=>{

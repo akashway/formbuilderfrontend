@@ -1,4 +1,5 @@
-import {URL} from './backendConnectionURL'
+const URL=import.meta.env.VITE_API_URL
+console.log(URL)
 
 const loginService=async (fromData)=>{
     const response=await fetch(`${URL}user/login`,{

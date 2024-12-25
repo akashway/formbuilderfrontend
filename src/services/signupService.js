@@ -1,4 +1,5 @@
-import {URL} from './backendConnectionURL'
+const URL=import.meta.env.VITE_API_URL
+
 
 const signupService=async (formData)=>{
     const response= await fetch(`${URL}user/signup`,{

@@ -1,4 +1,6 @@
-import {URL} from './backendConnectionURL'
+const URL=import.meta.env.VITE_API_URL
+
+
 
 const fetchFolderService = async () => {
     const response = await fetch(`${URL}folder`, {
