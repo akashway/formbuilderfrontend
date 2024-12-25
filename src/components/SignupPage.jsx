@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import signupService from '../services/signupService'
 import loginService from '../services/loginService'
 
 
 const SignupPage = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -35,11 +35,12 @@ const SignupPage = () => {
                 if (loginResponse.status === 200) {
                     const res = await loginResponse.json()
                     localStorage.setItem('token', res.token)
+                    localStorage.setItem('username', res.username)
                     navigate("/workspace")
                 }
-                else{
+                else {
                     const res = await loginResponse.json()
-                    console.log("error",res)
+                    console.log("error", res)
                 }
             }
             else {
